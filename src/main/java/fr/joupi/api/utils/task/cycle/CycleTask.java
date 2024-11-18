@@ -1,8 +1,8 @@
 package fr.joupi.api.utils.task.cycle;
 
-import fr.heriamc.games.engine.utils.concurrent.MultiThreading;
-import fr.heriamc.games.engine.utils.concurrent.VirtualThreading;
-import fr.heriamc.games.engine.utils.task.Task;
+import fr.joupi.api.utils.concurrent.MultiThreading;
+import fr.joupi.api.utils.concurrent.VirtualThreading;
+import fr.joupi.api.utils.task.Task;
 import lombok.Getter;
 
 import java.util.concurrent.ScheduledExecutorService;

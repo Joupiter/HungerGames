@@ -7,6 +7,10 @@ public enum HungerMessages {
 
     PREFIX ("§6§lHUNGERGAMES §8┃ "),
 
+    PLAYER_SPECTATE_MESSAGE ("something"),
+    PLAYER_JOIN_MESSAGE ("§a+ §e%s §7(%d/%d)"),
+    PLAYER_LEAVE_MESSAGE ("§c- §e%s §7(%d/%d)"),
+
     STARTING_CANCELLED ("§cLancement de la partie annuler..."),
     STARTING_MESSAGE ("§fLancement dans §e%d §fsecondes !"),
 

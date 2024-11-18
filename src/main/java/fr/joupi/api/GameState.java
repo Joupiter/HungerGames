@@ -6,8 +6,6 @@ import lombok.Getter;
 public enum GameState {
 
     LOADING,
-    LOADING_IN_PROGRESS,
-
     WAIT,
     STARTING,
     IN_GAME,

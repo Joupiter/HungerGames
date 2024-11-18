@@ -18,8 +18,8 @@ public class HungerSettings extends GameSettings {
 
     public HungerSettings(GameSize gameSize) {
         super(gameSize);
-        this.waitingMap = new GameMap("waiting", "lobby", 0, 80, 0, EnumDirection.NORTH);
-        this.arenaMap = new GameMap("waiting", "lobby", 0, 80, 0, EnumDirection.NORTH);
+        this.waitingMap = new GameMap("waiting"/*, "lobby", 0, 80, 0, EnumDirection.NORTH*/);
+        this.arenaMap = new GameMap("arena", "hgmap", 0, 80, 0, EnumDirection.NORTH);
         this.startTimer = 20; // JUST AN RANDOM VALUE
         this.gameLifeTime = 360; // JUST AN RANDOM VALUE
     }

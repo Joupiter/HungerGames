@@ -1,7 +1,6 @@
 package fr.joupi.hg;
 
 import fr.joupi.api.Game;
-import fr.joupi.api.GameSize;
 import fr.joupi.api.GameState;
 import fr.joupi.api.team.GameTeamColor;
 import fr.joupi.api.utils.GameSizeTemplate;
@@ -23,6 +22,7 @@ public class HungerGame extends Game<HungerPlayer, HungerTeam, HungerSettings> {
     public HungerGame() {
         super("HungerGames", new HungerSettings(GameSizeTemplate.SIZE_SOLO.toGameSize()));
         this.waitingRoom = new HungerWaitingRoom(this);
+        this.load();
     }
 
     @Override

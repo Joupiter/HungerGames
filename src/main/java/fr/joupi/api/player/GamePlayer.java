@@ -1,6 +1,7 @@
 package fr.joupi.api.player;
 
 import fr.joupi.api.team.GameTeam;
+import fr.joupi.api.utils.NameTag;
 import fr.joupi.api.utils.concurrent.MultiThreading;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,9 @@ public abstract class GamePlayer<T extends GameTeam<?>> {
 
     public <G extends GamePlayer<?>> void setTeam(GameTeam<G> team) {
         this.team = (T) team;
+        NameTag.setNameTag(player,
+                team == null ? "§7" : team.getColoredName() + " ", " ",
+                team == null ? 999 : team.getColor().ordinal());
     }
 
     public <G extends GamePlayer<?>> boolean sameTeam(G gamePlayer) {

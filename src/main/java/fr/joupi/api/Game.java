@@ -43,7 +43,7 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
         this.name = name;
         this.id  = RandomStringUtils.randomAlphabetic(8);
         this.settings = settings;
-        this.gameSize = null;
+        this.gameSize = settings.getGameSize();
         this.players = new ConcurrentHashMap<>(gameSize.calculateMapCapacity());
         this.teams = new ArrayList<>(gameSize.getTeamNeeded());
         this.state = GameState.LOADING;
@@ -321,9 +321,13 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
         sender.sendMessage("§m-----------------------------");
         sender.sendMessage("Game: " + getFullName());
         sender.sendMessage("Size: type=" + gameSize.getName() + ", min=" + gameSize.getMinPlayer() + ", max=" + gameSize.getMaxPlayer() + ", tn=" + gameSize.getTeamNeeded() + ", tm=" + gameSize.getTeamMaxPlayer());
-        sender.sendMessage("Condition: cj=" + canJoin() + ", cs=" + canStart() + ", isf=" + isFull());
-        sender.sendMessage("State: " + state);
-        sender.sendMessage("Players: " + playerCount + " (" + getAlivePlayersCount() + "|" + getSpectatorsCount() + ")");
+        sender.sendMessage("Condition: cj=" + canJoin() + ", cs=" + canStart() + ", isf=" + isFull() + ", ota=" + oneTeamAlive());
+        sender.sendMessage("State: " + getState());
+        sender.sendMessage("Team Alive: " + getAliveTeamsCount());
+        sender.sendMessage("Teams: " + getTeamsCount());
+        teams.forEach(gameTeam -> sender.sendMessage(gameTeam.getName() + ": " + gameTeam.getMembers().stream().map(GamePlayer::getPlayer).map(Player::getName).collect(Collectors.joining(", "))));
+
+        sender.sendMessage("Players: " + getSize() + " (" + getAlivePlayersCount() + "|" + getSpectatorsCount() + ")");
         sender.sendMessage("Alive players: " + getAlivePlayers().stream().map(GamePlayer::getPlayer).map(Player::getName).collect(Collectors.joining(", ")));
         sender.sendMessage("Spectator players: " + getSpectators().stream().map(GamePlayer::getPlayer).map(Player::getName).collect(Collectors.joining(", ")));
         sender.sendMessage("§m-----------------------------");
