@@ -1,0 +1,3 @@
+name: HungerGame
+main: fr.joupi.hg.HungerGamesPlugin
+version: 1.0.0
