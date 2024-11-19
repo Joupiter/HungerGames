@@ -147,8 +147,8 @@ public abstract class GamePlayer<T extends GameTeam<?>> {
 
         inventory.clear();
         inventory.setArmorContents(null);
-        player.setMaxHealth(2);
-        player.setHealth(2);
+        player.setMaxHealth(20);
+        player.setHealth(20);
         player.getActivePotionEffects().clear();
         player.setLevel(0);
         player.setExp(0);

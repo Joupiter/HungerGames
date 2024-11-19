@@ -98,6 +98,7 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
     public void leaveGame(UUID uuid) {
         ifContainsPlayer(uuid, gamePlayer -> {
             this.playerCount -= 1;
+            removePlayerFromTeam(gamePlayer);
 
             Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent<>(this, gamePlayer));
             players.remove(uuid);

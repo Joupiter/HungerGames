@@ -7,7 +7,7 @@ public enum HungerMessages {
 
     PREFIX ("§6§lHUNGERGAMES §8┃ "),
 
-    PLAYER_SPECTATE_MESSAGE ("something"),
+    PLAYER_SPECTATE_MESSAGE ("§e%s §7a rejoint en tant que spectateur."),
     PLAYER_JOIN_MESSAGE ("§a+ §e%s §7(%d/%d)"),
     PLAYER_LEAVE_MESSAGE ("§c- §e%s §7(%d/%d)"),
 

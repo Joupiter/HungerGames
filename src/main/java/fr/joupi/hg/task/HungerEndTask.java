@@ -16,8 +16,10 @@ public class HungerEndTask extends GameCountdownTask<HungerGame> {
 
     @Override
     public void onStart() {
-        game.getPlayers().values().forEach(HungerPlayer::cleanUp);
         game.setState(GameState.END);
+
+        game.getPlayers().values().forEach(HungerPlayer::cleanUp);
+        game.getFirstTeamAlive().ifPresent(game::onWin);
         // GIVE END ITEM (back to hub ect)
     }
 

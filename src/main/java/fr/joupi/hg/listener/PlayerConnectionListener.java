@@ -41,21 +41,24 @@ public record PlayerConnectionListener(HungerGame game) implements Listener {
 
     @EventHandler
     public void onJoinGame(GamePlayerJoinEvent<HungerGame, HungerPlayer> event) {
-        var player = event.getPlayer();
-
+        // EMPTY FOR NOW
     }
 
     @EventHandler
     public void onSpectate(GamePlayerSpectateEvent<HungerGame, HungerPlayer> event) {
         var player = event.getPlayer();
 
-        game.broadcast(HungerMessages.PLAYER_SPECTATE_MESSAGE.getMessage());
+        game.broadcast(HungerMessages.PLAYER_SPECTATE_MESSAGE.getMessage(player.getName()));
     }
 
     @EventHandler
     public void onLeaveGame(GamePlayerLeaveEvent<HungerGame, HungerPlayer> event) {
-        var player = event.getPlayer();
+        var gamePlayer = event.getGamePlayer();
 
+        if (game.getState() != GameState.IN_GAME || gamePlayer.isSpectator()) return;
+
+        if (game.oneTeamAlive())
+            game.getCycleTask().end();
     }
 
 }

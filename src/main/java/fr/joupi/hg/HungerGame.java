@@ -1,6 +1,7 @@
 package fr.joupi.hg;
 
 import fr.joupi.api.Game;
+import fr.joupi.api.GameObserver;
 import fr.joupi.api.GameState;
 import fr.joupi.api.team.GameTeamColor;
 import fr.joupi.api.utils.GameSizeTemplate;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class HungerGame extends Game<HungerPlayer, HungerTeam, HungerSettings> {
+public class HungerGame extends Game<HungerPlayer, HungerTeam, HungerSettings> implements GameObserver<HungerPlayer, HungerTeam> {
 
     private final CycleTask cycleTask;
     private final CountdownTask endTask;
@@ -51,6 +52,11 @@ public class HungerGame extends Game<HungerPlayer, HungerTeam, HungerSettings> {
     @Override
     public HungerTeam defaultGameTeam(int maxSize, GameTeamColor teamColor) {
         return new HungerTeam(maxSize, teamColor);
+    }
+
+    @Override
+    public void onWin(HungerTeam gameTeam) {
+        broadcast("L'équipe " + gameTeam.getColoredName() + " §rgagne les HUNGER GAMES !");
     }
 
     @Override

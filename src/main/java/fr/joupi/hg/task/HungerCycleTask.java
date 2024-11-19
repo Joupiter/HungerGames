@@ -39,6 +39,7 @@ public class HungerCycleTask extends GameCycleTask<HungerGame> {
 
     @Override
     public void onComplete() {
+        // CHECK HERE IF MORE THEN 1 TEAM ALIVE AND SOMETHING LIKE WAIT FOR THE PLAYERS KILLS THEMSELVES ?
         zone.onEnd();
         future.cancel(false);
         game.getEndTask().run();

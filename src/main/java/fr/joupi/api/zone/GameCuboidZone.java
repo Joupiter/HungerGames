@@ -1,18 +1,23 @@
 package fr.joupi.api.zone;
 
 import fr.joupi.api.MiniGame;
-import fr.joupi.hg.player.HungerPlayer;
+import fr.joupi.api.player.GamePlayer;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
-public abstract class GameCuboidZone<M extends MiniGame> implements CuboidZone {
+public abstract class GameCuboidZone<M extends MiniGame, G extends GamePlayer<?>> implements CuboidZone {
 
     protected M game;
+
     protected Vector center, topCorner, botCorner;
+    protected Set<G> players;
 
     public GameCuboidZone(M game, Location center, int size) {
         var newSize = size / 2.0;
@@ -21,10 +26,14 @@ public abstract class GameCuboidZone<M extends MiniGame> implements CuboidZone {
         this.center = center.toVector();
         this.topCorner = center.toVector().add(new Vector(newSize, newSize, newSize));
         this.botCorner = center.toVector().subtract(new Vector(newSize, newSize, newSize));
+        this.players = new HashSet<>(game.getSettings().getGameSize().getMaxPlayer());
     }
 
+    protected abstract void onEnter(G gamePlayer);
+    protected abstract void onExit(G gamePlayer);
+
     @Override
-    public void showBorder(HungerPlayer gamePlayer) {
+    public void showBorder(GamePlayer<?> player) {
         var world = Bukkit.getWorld("world");
         double y = botCorner.getY();
 
@@ -67,6 +76,20 @@ public abstract class GameCuboidZone<M extends MiniGame> implements CuboidZone {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public void addPlayer(GamePlayer<?> gamePlayer) {
+        if (players.add((G) gamePlayer))
+            onEnter((G) gamePlayer); // CALL OBSERVER
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void removePlayer(GamePlayer<?> gamePlayer) {
+        if (players.removeIf(gamePlayer::equals))
+            onExit((G) gamePlayer); // CALL OBSERVER
+    }
+
+    @Override
     public double getVolume() {
         var width = topCorner.getX() - botCorner.getX();
         var height = topCorner.getY() - botCorner.getY();
@@ -76,8 +99,14 @@ public abstract class GameCuboidZone<M extends MiniGame> implements CuboidZone {
     }
 
     @Override
-    public boolean contains(HungerPlayer hungerPlayer) {
-        return hungerPlayer.getLocation().toVector().isInAABB(botCorner, topCorner);
+    @SuppressWarnings("unchecked")
+    public boolean contains(GamePlayer<?> gamePlayer) {
+        return players.contains((G) gamePlayer);
+    }
+
+    @Override
+    public boolean contains(Location location) {
+        return location.toVector().isInAABB(botCorner, topCorner);
     }
 
     @Override

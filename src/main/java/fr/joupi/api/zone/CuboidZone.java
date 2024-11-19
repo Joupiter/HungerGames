@@ -1,7 +1,10 @@
 package fr.joupi.api.zone;
 
-import fr.joupi.hg.player.HungerPlayer;
+import fr.joupi.api.player.GamePlayer;
+import org.bukkit.Location;
 import org.bukkit.util.Vector;
+
+import java.util.Set;
 
 public interface CuboidZone {
 
@@ -9,21 +12,25 @@ public interface CuboidZone {
     Vector getBotCorner();
     Vector getTopCorner();
 
-    void onEnter(HungerPlayer hungerPlayer);
-    void onExit(HungerPlayer hungerPlayer);
+    <G extends GamePlayer<?>> Set<G> getPlayers();
 
     void onStart();
     void onNext(CuboidZone zone);
     void onEnd();
 
-    void showBorder(HungerPlayer player);
+    void showBorder(GamePlayer<?> player);
 
     void reduce(double factor);
     void reduce(int block);
 
+    void addPlayer(GamePlayer<?> gamePlayer);
+    void removePlayer(GamePlayer<?> gamePlayer);
+
     double getVolume();
 
-    boolean contains(HungerPlayer hungerPlayer);
+    boolean contains(GamePlayer<?> gamePlayer);
+    boolean contains(Location location);
+
     boolean isActive();
 
 }
