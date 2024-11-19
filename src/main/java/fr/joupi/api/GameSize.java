@@ -12,8 +12,4 @@ public class GameSize {
     private String name;
     private int minPlayer, maxPlayer, teamNeeded, teamMaxPlayer;
 
-    public int calculateMapCapacity() {
-        return maxPlayer == 999 ? 30 : maxPlayer;
-    }
-
 }

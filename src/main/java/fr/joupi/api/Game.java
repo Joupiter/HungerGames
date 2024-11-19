@@ -44,7 +44,7 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
         this.id  = RandomStringUtils.randomAlphabetic(8);
         this.settings = settings;
         this.gameSize = settings.getGameSize();
-        this.players = new ConcurrentHashMap<>(gameSize.calculateMapCapacity());
+        this.players = new ConcurrentHashMap<>(gameSize.getMaxPlayer());
         this.teams = new ArrayList<>(gameSize.getTeamNeeded());
         this.state = GameState.LOADING;
         this.playerCount = 0;
@@ -87,7 +87,7 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
                 Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent<>(this, gamePlayer));
 
             // SEEMS OKAY ?
-            if (waitingRoom != null)
+            if (waitingRoom != null && state.is(GameState.WAIT, GameState.STARTING))
                 waitingRoom.processJoin(gamePlayer);
 
             log.info("[{}] {} {} game.", getFullName(), player.getName(), spectator ? "spectate" : "joined");
@@ -103,7 +103,7 @@ public abstract class Game<G extends GamePlayer<T>, T extends GameTeam<G>, S ext
             players.remove(uuid);
 
             // NEED TO BE TESTED
-            if (waitingRoom != null)
+            if (waitingRoom != null && state.is(GameState.WAIT, GameState.STARTING))
                 waitingRoom.processLeave(gamePlayer);
 
             log.info("[{}] {} leave game.", getFullName(), uuid.toString());

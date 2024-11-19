@@ -14,8 +14,7 @@ public enum HungerMessages {
     STARTING_CANCELLED ("§cLancement de la partie annuler..."),
     STARTING_MESSAGE ("§fLancement dans §e%d §fsecondes !"),
 
-    DEATH_MESSAGE ("§fVous avez été tué par §c%s §f%s"),
-    KILL_MESSAGE ("§fTu as tué §c%s §f!"),
+    KILL_MESSAGE ("§c%s §ea été tué par §c%s §e!"),
 
     END_VICTORY_MESSAGE (
             "§m-------------------------------------------",

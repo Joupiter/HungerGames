@@ -40,6 +40,7 @@ public abstract class GamePlayer<T extends GameTeam<?>> {
         this(uuid, spectator, null);
     }
 
+    @SuppressWarnings("unchecked")
     public <G extends GamePlayer<?>> void setTeam(GameTeam<G> team) {
         this.team = (T) team;
         NameTag.setNameTag(player,
@@ -139,6 +140,19 @@ public abstract class GamePlayer<T extends GameTeam<?>> {
 
     public void sendPacket(Packet<?>... packets) {
         sendPacket(craftPlayer.getHandle().playerConnection, packets);
+    }
+
+    public void cleanUp() {
+        var inventory = player.getInventory();
+
+        inventory.clear();
+        inventory.setArmorContents(null);
+        player.setMaxHealth(2);
+        player.setHealth(2);
+        player.getActivePotionEffects().clear();
+        player.setLevel(0);
+        player.setExp(0);
+        player.setFoodLevel(20);
     }
 
 }

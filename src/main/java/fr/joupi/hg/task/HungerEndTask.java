@@ -1,9 +1,12 @@
 package fr.joupi.hg.task;
 
+import fr.joupi.api.GameState;
 import fr.joupi.api.utils.task.countdown.CountdownTask;
 import fr.joupi.api.utils.task.countdown.GameCountdownTask;
 import fr.joupi.hg.HungerGame;
+import fr.joupi.hg.player.HungerPlayer;
 import fr.joupi.hg.settings.HungerMessages;
+import org.bukkit.Bukkit;
 
 public class HungerEndTask extends GameCountdownTask<HungerGame> {
 
@@ -13,7 +16,9 @@ public class HungerEndTask extends GameCountdownTask<HungerGame> {
 
     @Override
     public void onStart() {
-
+        game.getPlayers().values().forEach(HungerPlayer::cleanUp);
+        game.setState(GameState.END);
+        // GIVE END ITEM (back to hub ect)
     }
 
     @Override
@@ -28,6 +33,7 @@ public class HungerEndTask extends GameCountdownTask<HungerGame> {
     @Override
     public void onComplete() {
         // STOP SERVER
+        Bukkit.shutdown();
     }
 
     @Override

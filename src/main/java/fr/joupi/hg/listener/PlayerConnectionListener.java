@@ -43,7 +43,6 @@ public record PlayerConnectionListener(HungerGame game) implements Listener {
     public void onJoinGame(GamePlayerJoinEvent<HungerGame, HungerPlayer> event) {
         var player = event.getPlayer();
 
-        game.broadcast(HungerMessages.PLAYER_JOIN_MESSAGE.getMessage(player.getName(), game.getSize(), game.getGameSize().getMaxPlayer()));
     }
 
     @EventHandler
@@ -57,7 +56,6 @@ public record PlayerConnectionListener(HungerGame game) implements Listener {
     public void onLeaveGame(GamePlayerLeaveEvent<HungerGame, HungerPlayer> event) {
         var player = event.getPlayer();
 
-        game.broadcast(HungerMessages.PLAYER_LEAVE_MESSAGE.getMessage(player.getName(), game.getSize(), game.getGameSize().getMaxPlayer()));
     }
 
 }

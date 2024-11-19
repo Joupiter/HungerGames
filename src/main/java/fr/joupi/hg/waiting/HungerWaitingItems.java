@@ -22,7 +22,7 @@ public enum HungerWaitingItems implements WaitingRoomItems {
             4,
             new ItemBuilder(Material.NETHER_STAR).setName("§eÉquipes§8・§7Clic droit").build(),
             (game, gamePlayer) -> {
-                game.addPlayerToRandomTeam(gamePlayer);
+                game.addPlayerToRandomTeam(gamePlayer); // DEBUG THING NEED TO BE DELETED
                 gamePlayer.sendMessage("need to be implemented");
             });
 

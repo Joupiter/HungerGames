@@ -15,9 +15,6 @@ public record PlayerInteractListener(HungerGame game) implements Listener {
         if (itemStack == null || !itemStack.hasItemMeta()) return;
 
         var player = event.getPlayer();
-
-        if (game == null) return;
-
         var gamePlayer = game.getNullablePlayer(player);
 
         if (gamePlayer == null) return;

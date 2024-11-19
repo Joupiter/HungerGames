@@ -1,10 +1,7 @@
 package fr.joupi.hg;
 
-import fr.joupi.api.GameState;
 import fr.joupi.api.utils.concurrent.BukkitThreading;
-import fr.joupi.hg.listener.CancelListener;
-import fr.joupi.hg.listener.PlayerConnectionListener;
-import fr.joupi.hg.listener.PlayerInteractListener;
+import fr.joupi.hg.listener.*;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +22,9 @@ public class HungerGamesPlugin extends JavaPlugin {
         registerListeners(
                 new CancelListener(game),
                 new PlayerInteractListener(game),
-                new PlayerConnectionListener(game)
+                new PlayerConnectionListener(game),
+                new PlayerChatListener(game),
+                new PlayerMoveListener(game)
         );
     }
 

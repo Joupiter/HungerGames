@@ -30,6 +30,7 @@ public abstract class GameWaitingRoom<M extends MiniGame, G extends GamePlayer<?
     protected abstract void onLeave(G gamePlayer);
 
     @Override
+    @SuppressWarnings("unchecked")
     public void processJoin(GamePlayer<?> gamePlayer) {
         var spawn = map.getSpawn();
         cleanUpPlayer(gamePlayer);
@@ -43,6 +44,7 @@ public abstract class GameWaitingRoom<M extends MiniGame, G extends GamePlayer<?
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void processLeave(GamePlayer<?> gamePlayer) {
         onLeave((G) gamePlayer);
         tryToCancelTimer();
